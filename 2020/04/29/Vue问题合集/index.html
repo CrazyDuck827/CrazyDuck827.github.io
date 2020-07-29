@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Linux 搭建 Nginx &amp; Mysql &amp; PHP 环境, CrazyDuck827&#39;s Blog">
+    <meta name="keywords" content="Vue问题合集, CrazyDuck827&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Linux 搭建 Nginx &amp; Mysql &amp; PHP 环境 | CrazyDuck827&#39;s Blog</title>
+    <title>Vue问题合集 | CrazyDuck827&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -245,12 +245,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Linux 搭建 Nginx &amp; Mysql &amp; PHP 环境</h1>
+                    <h1 class="description center-align post-title">Vue问题合集</h1>
                 </div>
             </div>
         </div>
@@ -367,8 +367,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/Front/">
+                                <span class="chip bg-color">Front</span>
+                            </a>
+                        
+                            <a href="/tags/Vue/">
+                                <span class="chip bg-color">Vue</span>
                             </a>
                         
                     </div>
@@ -379,8 +383,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
+                            <a href="/categories/Front/" class="post-category">
+                                Front
                             </a>
                         
                     </div>
@@ -392,28 +396,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-08-12
+                    2020-04-29
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-26
+                    2020-07-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    71
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    1 分
                 </div>
                 
 
@@ -428,285 +432,20 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><blockquote>
-<p>Nginx官网下载地址：<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></p>
-</blockquote>
-<ul>
-<li><p>安装依赖：</p>
-<pre><code>  yum -y install gcc zlib* pcre*openssl* wget gcc-c++ tree</code></pre></li>
-<li><p>官网下载源码包：</p>
-<pre><code>  cd /usr/local/src
-  wget http://nginx.org/download/nginx-1.17.3.tar.gz
-  tar -zxvf nginx-1.17.3.tar.gz</code></pre></li>
-<li><p>安装Nginx：</p>
-<pre><code>  cd /usr/local/src/nginx-1.17.3
-  ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre
-  make &amp;&amp; make install</code></pre></li>
-<li><p>配置Nginx：</p>
-<pre><code>  vi /usr/local/nginx/conf/nginx.conf
-  // 大致修改如下：
-  worker_processes  auto;
-  server {
-          listen       80;
-          server_name  localhost;
-          root         /data/www/default;
-
-          location / {
-              index  index.html index.htm index.php;
-              if ( -f $request_filename) {
-                 break;
-              }
-              if ( !-e $request_filename) {
-                 rewrite ^(.*)$ /index.php/$1 last;
-                 break;
-              }
-          }
-
-          error_page   500 502 503 504  /50x.html;
-          location = /50x.html {
-              root   html;
-          }
-
-          // php解析
-          location ~ \.php {
-              fastcgi_pass   127.0.0.1:9000;
-              fastcgi_index  index.php;
-              fastcgi_split_path_info ^(.+\.php)(.*)$;
-              fastcgi_param PATH_INFO $fastcgi_path_info;
-              fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-              fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-              include        fastcgi_params;
-          }
-      }</code></pre></li>
-<li><p>启动Nginx：</p>
-<pre><code>  # 启动
-  /usr/local/nginx/sbin/nginx
-  # 查看nginx进程是否启动
-  ps -ef | grep nginx</code></pre></li>
-<li><p>一键shell：</p>
-<pre><code>  yum -y install gcc zlib* pcre*openssl* wget gcc-c++ tree
-  cd /usr/local/src
-  NGINXVERSION=1.17.3
-  wget http://nginx.org/download/nginx-${NGINXVERSION}.tar.gz
-  tar -zxvf nginx-${NGINXVERSION}.tar.gz &amp;&amp; cd nginx-${NGINXVERSION}
-  ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre
-  make &amp;&amp; make install
-  rm -f /usr/local/nginx/conf/nginx.conf &amp;&amp; touch /usr/local/nginx/conf/nginx.conf &amp;&amp; echo &#39;/
-  #user  nobody;
-  worker_processes  auto;
-  worker_cpu_affinity auto;
-  worker_rlimit_nofile 65535;
-
-  #error_log  logs/error.log;
-  error_log  logs/error.log  notice;
-  #error_log  logs/error.log  info;
-
-  #pid        logs/nginx.pid;
-
-  events {
-      worker_connections  1024;
-  }
-
-  http {
-      include       mime.types;
-      default_type  application/octet-stream;
-
-      client_max_body_size   20m;
-
-      #log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
-      #                  &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
-      #                  &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
-
-      #access_log  logs/access.log  main;
-
-      sendfile        on;
-      #tcp_nopush     on;
-
-      #keepalive_timeout  0;
-      keepalive_timeout  65;
-
-      #gzip  on;
-
-      #include     vhost/*.conf;
-      server {
-          listen       80;
-          server_name  localhost;
-          rewrite ^(.*)$  https://$host$1 permanent;
-      }
-      server {
-          listen       443 ssl;
-          server_name  localhost;
-          root         /data/www/default;
-
-          ssl                  on;
-          ssl_certificate      ./ssl/xzky.pem;
-          ssl_certificate_key  ./ssl/xzky.key;
-          #ssl_client_certificate ca.crt;
-          #ssl_verify_client on;
-          ssl_session_timeout  5m;
-          ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-          ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
-          ssl_prefer_server_ciphers   on;
-
-          location / {
-              index  index.html index.htm index.php;
-              if ( -f $request_filename) {
-                 break;
-              }
-              if ( !-e $request_filename) {
-                 rewrite ^(.*)$ /index.php/$1 last;
-                 break;
-              }
-          }
-
-          error_page   500 502 503 504  /50x.html;
-          location = /50x.html {
-              root   html;
-          }
-
-          location ~ \.php {
-              fastcgi_pass   127.0.0.1:9000;
-              fastcgi_index  index.php;
-              fastcgi_split_path_info ^(.+\.php)(.*)$;
-              fastcgi_param PATH_INFO $fastcgi_path_info;
-              fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-              fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-              include        fastcgi_params;
-          }
-      }
-  }&#39; &gt; /usr/local/nginx/conf/nginx.conf
-  /usr/local/nginx/sbin/nginx</code></pre></li>
-<li><p>备注：</p>
-<ol>
-<li>Q：关于Linux下Nginx服务启动，通过浏览器无法访问的问题？<br>A：<pre><code>       # 防火墙没有开启，添加 Nginx 端口配置，如80
-       firewall-cmd --zone=public --add-port=80/tcp --permanent
-       # 重启防火墙
-       systemctl restart firewalld.service</code></pre></li>
-<li>Q：nginx: [error] open() “/usr/local/nginx/logs/nginx.pid” failed (2: No such file or directory)<br> A：<pre><code>       # 使用指定nginx.conf文件的方式重启nginx
-       /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</code></pre></li>
-</ol>
+                <h3 id="Vue项目搭建打包流程"><a href="#Vue项目搭建打包流程" class="headerlink" title="Vue项目搭建打包流程"></a>Vue项目搭建打包流程</h3><ul>
+<li><p>安装node.js</p>
 </li>
-</ul>
-<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><blockquote>
-<p>PHP官网下载地址：<a href="https://www.php.net/downloads.php" target="_blank" rel="noopener">https://www.php.net/downloads.php</a></p>
-</blockquote>
-<ul>
-<li><p>安装依赖：</p>
-<pre><code>  yum -y install make libtool libxml2 libxml* libxslt* gd libjpeg* libpng* freetype* curl* libaio*</code></pre></li>
-<li><p>官网下载源码包：</p>
-<pre><code>  cd /usr/local/src
-  wget https://www.php.net/distributions/php-7.0.33.tar.gz
-  tar -zxvf php-7.0.33.tar.gz</code></pre></li>
-<li><p>安装PHP：</p>
-<pre><code>  cd /usr/local/src/php-7.0.33
-
-  // php7.3起 废弃gd库 --enable-gd-native-ttf
-  ./configure --prefix=/usr/local/php --with-curl --with-freetype-dir --with-gd --with-gettext --with-iconv-dir --with-kerberos --with-libdir=lib64 --with-libxml-dir --with-mysqli --with-openssl --with-pcre-regex --with-pdo-mysql --with-pdo-sqlite --with-pear --with-png-dir --with-xmlrpc --with-xsl --with-zlib --enable-fpm --enable-bcmath --enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl --enable-shmop --enable-soap --enable-sockets --enable-sysvsem --enable-xml --enable-zip --with-jpeg-dir
-
-  make &amp;&amp; make install</code></pre></li>
-<li><p>配置PHP：</p>
-<pre><code>  cp ./php.ini-development /usr/local/php/lib/php.ini
-
-  cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
-
-  cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf
-
-  cp -R /usr/local/php/sbin/php-fpm /etc/init.d/php-fpm
-
-  sed -i &quot;s/pm\.max_children \= 5/pm\.max_children \= 400/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-
-  sed -i &quot;s/pm\.start_servers \= 2/pm\.start_servers \= 40/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-
-  sed -i &quot;s/pm\.min_spare_servers \= 1/pm\.min_spare_servers \= 20/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-
-  sed -i &quot;s/pm\.max_spare_servers \= 3/pm\.max_spare_servers \= 80/g&quot; /usr/local/php/etc/php-fpm.d/www.conf</code></pre></li>
-<li><p>启动PHP：</p>
-<pre><code>  /usr/local/php/sbin/php-fpm</code></pre></li>
-<li><p>一键shell：</p>
-<pre><code>  yum -y install make libtool libxml2 libxml* libxslt* gd libjpeg* libpng* freetype* curl* libaio*
-  cd /usr/local/src
-  PHPVERSION=7.0.33
-  wget https://www.php.net/distributions/php-${PHPVERSION}.tar.gz
-  tar -zxvf php-${PHPVERSION}.tar.gz &amp;&amp; cd php-${PHPVERSION}
-  ./configure --prefix=/usr/local/php --with-curl --with-freetype-dir --with-gd --with-gettext --with-iconv-dir --with-kerberos --with-libdir=lib64 --with-libxml-dir --with-mysqli --with-openssl --with-pcre-regex --with-pdo-mysql --with-pdo-sqlite --with-pear --with-png-dir --with-xmlrpc --with-xsl --with-zlib --enable-fpm --enable-bcmath --enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl --enable-shmop --enable-soap --enable-sockets --enable-sysvsem --enable-xml --enable-zip --with-jpeg-dir
-  make &amp;&amp; make install
-  cp ./php.ini-development /usr/local/php/lib/php.ini
-  cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
-  cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf
-  cp -R /usr/local/php/sbin/php-fpm /etc/init.d/php-fpm
-  sed -i &quot;s/pm\.max_children \= 5/pm\.max_children \= 400/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  sed -i &quot;s/pm\.start_servers \= 2/pm\.start_servers \= 40/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  sed -i &quot;s/pm\.min_spare_servers \= 1/pm\.min_spare_servers \= 20/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  sed -i &quot;s/pm\.max_spare_servers \= 3/pm\.max_spare_servers \= 80/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  /usr/local/php/sbin/php-fpm</code></pre></li>
-<li><p>备注：</p>
-<ol>
-<li>Q：nginx+php环境的file not found问题<br>A：<ol>
-<li>nginx配置文件中配置的php文件指向的目录不对，导致找不到文件<pre><code>     # 这种情况应该这么做，注意代码中的{{{web目录}}}改成你对应的web目录
-     location ~ .*\.php$ {
-           fastcgi_pass   127.0.0.1:9000;
-           fastcgi_index  index.php;
-           fastcgi_param  SCRIPT_FILENAME {{{web目录}}}$fastcgi_script_name;
-           include        fastcgi.conf;
-       }</code></pre></li>
-<li>访问web目录的权限不够</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h3><blockquote>
-<p>Mysql官网下载地址：<a href="https://dev.mysql.com/Downloads" target="_blank" rel="noopener">https://dev.mysql.com/Downloads</a></p>
-</blockquote>
-<ul>
-<li><p>说明：下载的源码包直接可以使用，无需编译安装（绿色版）</p>
-</li>
-<li><p>官网下载源码包：</p>
-<pre><code>  cd /usr/local/src
-  wget https://dev.mysql.com/Downloads/MySQL-5.7/mysql-5.7.27-linux-glibc2.12-x86_64.tar.gz
-  tar -zxvf mysql-5.7.27-linux-glibc2.12-x86_64.tar.gz</code></pre></li>
-<li><p>复制Mysql：</p>
-<pre><code>  mv /usr/local/src/mysql-5.7.27-linux-glibc2.12-x86_64 ../mysql</code></pre></li>
-<li><p>创建Mysql用户：</p>
-<pre><code>  cd usr/local/mysql
-  groupadd mysql
-  useradd mysql -s /sbin/nologin -g mysql
-  chown -R mysql:mysql /data/mysql
-  chown -R mysql:mysql ./</code></pre></li>
-<li><p>配置Mysql：</p>
-<pre><code>  sed -i &quot;s/var\/lib/data/g&quot; /etc/my.cnf
-  sed -i &#39;12,13d&#39; /etc/my.cnf
-  usr/local/mysql/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql
-  chown -R root:root usr/local/mysql</code></pre></li>
-<li><p>启动Mysql:</p>
-<pre><code>  usr/local/mysql/support-files/mysql.server start</code></pre></li>
-<li><p>一键shell：</p>
-<pre><code>  cd /usr/local/src
-  MYSQLVERSION=5.7.27
-  wget https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-${MYSQLVERSION}-linux-glibc2.12-x86_64.tar.gz
-  tar -zxvf mysql-${MYSQLVERSION}-linux-glibc2.12-x86_64.tar.gz &amp;&amp; mv mysql-${MYSQLVERSION}-linux-glibc2.12-x86_64 ../mysql
-  cd ../mysql
-  groupadd mysql
-  useradd mysql -s /sbin/nologin -g mysql
-  chown -R mysql:mysql /data/mysql
-  chown -R mysql:mysql ./
-  sed -i &quot;s/var\/lib/data/g&quot; /etc/my.cnf
-  sed -i &#39;12,13d&#39; /etc/my.cnf
-  ./bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql
-  chown -R root:root ./
-  ./support-files/mysql.server start</code></pre></li>
-<li><p>开启Mysql远程连接：</p>
-<pre><code>  mysql -u root -p
-  # 使用 grant 命令重新创建一个用户
-  GRANT ALL PRIVILEGES ON *.* TO &#39;账号&#39;@&#39;%&#39; IDENTIFIED BY &#39;your password&#39; 
-  # 刷新权限
-  flush privileges;
-  # 查看目前防火墙
-  firewall-cmd --list-all 
-  # 开放3306端口
-  firewall-cmd --permanent --add-port=3306/tcp
-  # 重启防火墙,查看3306端口是否开放
-  service firewalld restart</code></pre></li>
+<li><p>npm淘宝镜像</p>
+<pre><code>  npm install -g cnpm --registry=https://registry.npm.taobao.org</code></pre></li>
+<li><p>安装全局 vue-cli</p>
+<pre><code>  cnpm install -g  vue-cli</code></pre></li>
+<li><p>安装依赖</p>
+<pre><code>  cnpm install</code></pre></li>
+<li><p>运行项目</p>
+<pre><code>  cnpm run dev</code></pre></li>
+<li><p>打包项目</p>
+<pre><code>  npm run build
+  cnpm i &amp;&amp; npm run build #解决打包慢 </code></pre></li>
 </ul>
 
             </div>
@@ -733,7 +472,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://crazyduck827.github.io/2019/08/12/%E6%90%AD%E5%BB%BAlnmp/">http://crazyduck827.github.io/2019/08/12/%E6%90%AD%E5%BB%BAlnmp/</a>
+                    <a href="http://crazyduck827.github.io/2020/04/29/Vue%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/">http://crazyduck827.github.io/2020/04/29/Vue%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -771,8 +510,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/Front/">
+                                    <span class="chip bg-color">Front</span>
+                                </a>
+                            
+                                <a href="/tags/Vue/">
+                                    <span class="chip bg-color">Vue</span>
                                 </a>
                             
                         </div>
@@ -940,29 +683,106 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/08/17/Linux%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85php%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
+                <a href="/2020/04/29/Vue%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Linux编译安装php常见错误">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Vue问题合集">
                         
-                        <span class="card-title">Linux编译安装php常见错误</span>
+                        <span class="card-title">Vue问题合集</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、configure: error: xslt-config not found. Please reinstall the libxslt &gt;= 1.1.0 distribution　　解决方法：　　yum -y install 
+                            Vue项目搭建打包流程
+安装node.js
+
+npm淘宝镜像
+  npm install -g cnpm --registry=https://registry.npm.taobao.org
+安装全局 vue-cli
+  cnpm inst
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-08-17
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Front/" class="post-category">
+                                    Front
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Front/">
+                        <span class="chip bg-color">Front</span>
+                    </a>
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/01/%E5%90%8E%E7%AB%AF%E5%BF%85%E5%A4%87Nginx%E9%85%8D%E7%BD%AE/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="后端必备Nginx配置">
+                        
+                        <span class="card-title">后端必备Nginx配置</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            概要
+防盗链
+根据文件类型设置过期时间
+静态资源访问
+日志配置
+日志字段说明
+access_log 访问日志
+error_log 日志
+日志切割
+
+
+反向代理
+禁止指定user_agent
+nginx访问控制
+负载均衡
+
+防盗链    lo
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -982,67 +802,8 @@
                         <span class="chip bg-color">Linux</span>
                     </a>
                     
-                    <a href="/tags/PHP/">
-                        <span class="chip bg-color">PHP</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/08/07/TCP%E3%80%81IP%E5%8D%8F%E8%AE%AE/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="TCP / IP 协议">
-                        
-                        <span class="card-title">TCP / IP 协议</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            TCP / IP 协议概念
-TCP/IP（Transmission Control Protocol/Internet Protocol，传输控制协议/网际协议）是指能够在多个不同网络间实现信息传输的协议簇。
-基于TCP/IP的参考模型将协
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-08-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Web/" class="post-category">
-                                    Web
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/TCP/">
-                        <span class="chip bg-color">TCP</span>
-                    </a>
-                    
-                    <a href="/tags/Web/">
-                        <span class="chip bg-color">Web</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">网络基础</span>
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
