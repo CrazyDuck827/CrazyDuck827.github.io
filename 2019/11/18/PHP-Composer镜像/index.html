@@ -410,7 +410,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    168
+                    208
                 </div>
                 
 
@@ -482,17 +482,35 @@
 <li><p>全局命令</p>
 <pre><code>  composer config -g repos.packagist composer https://mirrors.aliyun.com/composer</code></pre></li>
 <li><p>项目composer.json</p>
-<pre><code>  &quot;repositories&quot;: {
-      &quot;packagist&quot;: {
-          &quot;type&quot;: &quot;composer&quot;,
-          &quot;url&quot;: &quot;https://mirrors.aliyun.com/composer/&quot;
+<pre><code>  "repositories": {
+      "packagist": {
+          "type": "composer",
+          "url": "https://mirrors.aliyun.com/composer/"
       }
   }</code></pre></li>
 </ul>
 <h3 id="多线程下载"><a href="#多线程下载" class="headerlink" title="多线程下载"></a>多线程下载</h3><ul>
 <li>全局安装插件：hirak/prestissimo<pre><code>  composer global require hirak/prestissimo</code></pre></li>
 </ul>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1065,7 +1083,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.3k</span>&nbsp;字
+                class="white-color">13k</span>&nbsp;字
             
             
             

@@ -406,7 +406,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    505
+                    477
                 </div>
                 
 
@@ -428,35 +428,35 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="base64图片上传"><a href="#base64图片上传" class="headerlink" title="base64图片上传"></a>base64图片上传</h1><h3 id="web部分"><a href="#web部分" class="headerlink" title="web部分"></a>web部分</h3><pre><code class="html">&lt;img name=&quot;img&quot; id=&quot;Image1&quot; src=&quot;&quot;&gt;
-&lt;input class=&quot;imgFile&quot; type=&quot;file&quot;&gt;</code></pre>
+                <h1 id="base64图片上传"><a href="#base64图片上传" class="headerlink" title="base64图片上传"></a>base64图片上传</h1><h3 id="web部分"><a href="#web部分" class="headerlink" title="web部分"></a>web部分</h3><pre><code class="html">&lt;img name="img" id="Image1" src=""&gt;
+&lt;input class="imgFile" type="file"&gt;</code></pre>
 <h3 id="js部分"><a href="#js部分" class="headerlink" title="js部分"></a>js部分</h3><pre><code class="javascript">// 实时预览
-$(&quot;.imgFile&quot;).change(function () {
-        var file = $(&quot;.imgFile&quot;).get(0).files[0];
+$(".imgFile").change(function () {
+        var file = $(".imgFile").get(0).files[0];
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = function () {
-            $(&quot;#Image1&quot;).attr(&quot;src&quot;, reader.result);
+            $("#Image1").attr("src", reader.result);
         }
     });
 // ajax上传
-$(&quot;#register2&quot;).click(function () {
-        var IMG_BASE = $(&quot;#Image1&quot;).attr(&quot;src&quot;);//要上传的图片的base64编码
-        var IMG_ROUTE = $(&quot;.imgFile&quot;).val();//获取上传图片路径，为获取图片类型使用
+$("#register2").click(function () {
+        var IMG_BASE = $("#Image1").attr("src");//要上传的图片的base64编码
+        var IMG_ROUTE = $(".imgFile").val();//获取上传图片路径，为获取图片类型使用
         var IMG_ENDFOUR = IMG_ROUTE.substr(IMG_ROUTE.length - 4, 4);//截取路径后四位，判断图片类型
-        var IMG_FOMATE = &quot;jpeg&quot;; //图片类型***
-        if (IMG_ENDFOUR.trim() == &quot;.jpg&quot;)
-            IMG_FOMATE = &quot;jpg&quot;;
-        else if (IMG_ENDFOUR.trim() == &quot;.png&quot;)
-            IMG_FOMATE = &quot;png&quot;;
-        else if (IMG_ENDFOUR.trim() == &quot;.bmp&quot;)
-            IMG_FOMATE = &quot;bmp&quot;;
+        var IMG_FOMATE = "jpeg"; //图片类型***
+        if (IMG_ENDFOUR.trim() == ".jpg")
+            IMG_FOMATE = "jpg";
+        else if (IMG_ENDFOUR.trim() == ".png")
+            IMG_FOMATE = "png";
+        else if (IMG_ENDFOUR.trim() == ".bmp")
+            IMG_FOMATE = "bmp";
         //图片正式开始上传
         $.ajax({
-            type: &quot;post&quot;,
-            url: &quot;server/head.ashx&quot;,
-            data: { &#39;imgBase&#39;: IMG_BASE, &#39;imgFormat&#39;: IMG_FOMATE },
-            dataType: &quot;text&quot;,
+            type: "post",
+            url: "server/head.ashx",
+            data: { 'imgBase': IMG_BASE, 'imgFormat': IMG_FOMATE },
+            dataType: "text",
             success: function (data) {
                 //data为返回的图片路径
             }
@@ -464,21 +464,21 @@ $(&quot;#register2&quot;).click(function () {
     });</code></pre>
 <h3 id="php部分"><a href="#php部分" class="headerlink" title="php部分"></a>php部分</h3><pre><code class="php">class Base64_Upload
 {
-    private $config = ROOT_PATH . &#39;public&#39; . DS . &#39;upload&#39;;
+    private $config = ROOT_PATH . 'public' . DS . 'upload';
 
     /**
      * @param $base64_arr  base64格式图片
      * @param array $allow_type  允许上传的文件类型
      * @return array|bool
      */
-    function upload($base64_arr, $allow_type=[&#39;jpg&#39;, &#39;jpeg&#39;, &#39;png&#39;]) {
+    function upload($base64_arr, $allow_type=['jpg', 'jpeg', 'png']) {
         if (empty($base64_arr) || !is_array($base64_arr)) return false;
         $flag = true;
         $fileArr = [];
         $base64_imgs = $base64_arr;
         //类型错误中断
         foreach ($base64_imgs as $k =&gt; $base64) {
-            $imgType = $this-&gt;getImgType($base64, &#39;/&#39;, &#39;;&#39;);
+            $imgType = $this-&gt;getImgType($base64, '/', ';');
             if (!in_array($imgType, $allow_type)) {
                 $flag = false;
                 break;
@@ -497,13 +497,13 @@ $(&quot;#register2&quot;).click(function () {
                 }
             }
             foreach ($base64_imgs as $k =&gt; $base64) {
-                $imgType = $this-&gt;getImgType($base64, &#39;/&#39;, &#39;;&#39;);
-                $filename = md5(uniqid(mt_rand(), true)) . &#39;.&#39; . $imgType;
-                $filePath = $path.&#39;/&#39;.$filename; //路径加名字
+                $imgType = $this-&gt;getImgType($base64, '/', ';');
+                $filename = md5(uniqid(mt_rand(), true)) . '.' . $imgType;
+                $filePath = $path.'/'.$filename; //路径加名字
                 $img = base64_decode($this-&gt;getBase64Content($base64));
                 file_put_contents($filePath, $img); //base64的图片压缩到文件里
                 $rs = (new AliModel())-&gt;OssUploadFile($filePath);
-                if ($rs[&#39;code&#39;] == 1) $fileArr[] = $rs[&#39;result&#39;][&#39;file_path&#39;];
+                if ($rs['code'] == 1) $fileArr[] = $rs['result']['file_path'];
                 unlink($filePath);
             }
             return $fileArr;
@@ -529,12 +529,30 @@ $(&quot;#register2&quot;).click(function () {
      * 获取base64图片内容
      */
     private function getBase64Content($base64Str) {
-        return substr($base64Str, strpos($base64Str, &#39;,&#39;)+1);
+        return substr($base64Str, strpos($base64Str, ',')+1);
     }
 }</code></pre>
 <h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>附实时预览图片插件：<a href="http://fex.baidu.com/webuploader/" target="_blank" rel="noopener">webuploader</a>    </p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/yangchuanqi/p/8477957.html" target="_blank" rel="noopener">JQuery input file 上传图片</a></p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1103,7 +1121,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.3k</span>&nbsp;字
+                class="white-color">13k</span>&nbsp;字
             
             
             

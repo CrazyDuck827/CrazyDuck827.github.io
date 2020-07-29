@@ -410,14 +410,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    629
+                    673
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -547,7 +547,7 @@ class Div extends Operation
     public function getResult()
     {
         if ($this-&gt;numberB == 0) {
-            throw new \InvalidArgumentException(&#39;除数不能为0&#39;);
+            throw new \InvalidArgumentException('除数不能为0');
         }
         return $this-&gt;numberA / $this-&gt;numberB;
     }
@@ -587,7 +587,7 @@ class AddFactory extends Factory
 
 namespace Baijunyao\DesignPatterns\FactoryMethod;
 
-require __DIR__.&#39;/../vendor/autoload.php&#39;;
+require __DIR__.'/../vendor/autoload.php';
 
 /**
  * 客户端
@@ -606,7 +606,7 @@ class Client
         $result = $operation-&gt;getResult();
         echo $result;
 
-        echo &#39;&lt;br&gt;&#39;;
+        echo '&lt;br&gt;';
 
         // 计算 3+4
         $operation = new Add();
@@ -632,12 +632,30 @@ class Client
 
 $client = new Client();
 $client-&gt;bad();
-echo &#39;&lt;br&gt;&#39;;
+echo '&lt;br&gt;';
 $client-&gt;good();</code></pre><blockquote>
 <p>通过代码我们可以看出<br>工厂方法不需要再做判断了<br>但是增加了工作量<br>每增加一个产品都需要增加对应的工厂<br>这就形成了一种特殊的代码重复<br>不过式设计模式并不是独立使用的<br>很多时候都是多个模式互相配合来弱化各自的缺点</p>
 </blockquote>
 <p><img src="/image/oop2.jpg" alt="oop"></p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1213,7 +1231,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.3k</span>&nbsp;字
+                class="white-color">13k</span>&nbsp;字
             
             
             

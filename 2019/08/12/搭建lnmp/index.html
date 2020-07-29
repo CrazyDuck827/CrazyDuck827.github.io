@@ -491,7 +491,7 @@
   tar -zxvf nginx-${NGINXVERSION}.tar.gz &amp;&amp; cd nginx-${NGINXVERSION}
   ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre
   make &amp;&amp; make install
-  rm -f /usr/local/nginx/conf/nginx.conf &amp;&amp; touch /usr/local/nginx/conf/nginx.conf &amp;&amp; echo &#39;/
+  rm -f /usr/local/nginx/conf/nginx.conf &amp;&amp; touch /usr/local/nginx/conf/nginx.conf &amp;&amp; echo '/
   #user  nobody;
   worker_processes  auto;
   worker_cpu_affinity auto;
@@ -513,9 +513,9 @@
 
       client_max_body_size   20m;
 
-      #log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
-      #                  &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
-      #                  &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+      #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+      #                  '$status $body_bytes_sent "$http_referer" '
+      #                  '"$http_user_agent" "$http_x_forwarded_for"';
 
       #access_log  logs/access.log  main;
 
@@ -574,7 +574,7 @@
               include        fastcgi_params;
           }
       }
-  }&#39; &gt; /usr/local/nginx/conf/nginx.conf
+  }' &gt; /usr/local/nginx/conf/nginx.conf
   /usr/local/nginx/sbin/nginx</code></pre></li>
 <li><p>备注：</p>
 <ol>
@@ -613,13 +613,13 @@
 
   cp -R /usr/local/php/sbin/php-fpm /etc/init.d/php-fpm
 
-  sed -i &quot;s/pm\.max_children \= 5/pm\.max_children \= 400/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.max_children \= 5/pm\.max_children \= 400/g" /usr/local/php/etc/php-fpm.d/www.conf
 
-  sed -i &quot;s/pm\.start_servers \= 2/pm\.start_servers \= 40/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.start_servers \= 2/pm\.start_servers \= 40/g" /usr/local/php/etc/php-fpm.d/www.conf
 
-  sed -i &quot;s/pm\.min_spare_servers \= 1/pm\.min_spare_servers \= 20/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.min_spare_servers \= 1/pm\.min_spare_servers \= 20/g" /usr/local/php/etc/php-fpm.d/www.conf
 
-  sed -i &quot;s/pm\.max_spare_servers \= 3/pm\.max_spare_servers \= 80/g&quot; /usr/local/php/etc/php-fpm.d/www.conf</code></pre></li>
+  sed -i "s/pm\.max_spare_servers \= 3/pm\.max_spare_servers \= 80/g" /usr/local/php/etc/php-fpm.d/www.conf</code></pre></li>
 <li><p>启动PHP：</p>
 <pre><code>  /usr/local/php/sbin/php-fpm</code></pre></li>
 <li><p>一键shell：</p>
@@ -634,10 +634,10 @@
   cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
   cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf
   cp -R /usr/local/php/sbin/php-fpm /etc/init.d/php-fpm
-  sed -i &quot;s/pm\.max_children \= 5/pm\.max_children \= 400/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  sed -i &quot;s/pm\.start_servers \= 2/pm\.start_servers \= 40/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  sed -i &quot;s/pm\.min_spare_servers \= 1/pm\.min_spare_servers \= 20/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
-  sed -i &quot;s/pm\.max_spare_servers \= 3/pm\.max_spare_servers \= 80/g&quot; /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.max_children \= 5/pm\.max_children \= 400/g" /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.start_servers \= 2/pm\.start_servers \= 40/g" /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.min_spare_servers \= 1/pm\.min_spare_servers \= 20/g" /usr/local/php/etc/php-fpm.d/www.conf
+  sed -i "s/pm\.max_spare_servers \= 3/pm\.max_spare_servers \= 80/g" /usr/local/php/etc/php-fpm.d/www.conf
   /usr/local/php/sbin/php-fpm</code></pre></li>
 <li><p>备注：</p>
 <ol>
@@ -674,8 +674,8 @@
   chown -R mysql:mysql /data/mysql
   chown -R mysql:mysql ./</code></pre></li>
 <li><p>配置Mysql：</p>
-<pre><code>  sed -i &quot;s/var\/lib/data/g&quot; /etc/my.cnf
-  sed -i &#39;12,13d&#39; /etc/my.cnf
+<pre><code>  sed -i "s/var\/lib/data/g" /etc/my.cnf
+  sed -i '12,13d' /etc/my.cnf
   usr/local/mysql/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql
   chown -R root:root usr/local/mysql</code></pre></li>
 <li><p>启动Mysql:</p>
@@ -690,15 +690,15 @@
   useradd mysql -s /sbin/nologin -g mysql
   chown -R mysql:mysql /data/mysql
   chown -R mysql:mysql ./
-  sed -i &quot;s/var\/lib/data/g&quot; /etc/my.cnf
-  sed -i &#39;12,13d&#39; /etc/my.cnf
+  sed -i "s/var\/lib/data/g" /etc/my.cnf
+  sed -i '12,13d' /etc/my.cnf
   ./bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql
   chown -R root:root ./
   ./support-files/mysql.server start</code></pre></li>
 <li><p>开启Mysql远程连接：</p>
 <pre><code>  mysql -u root -p
   # 使用 grant 命令重新创建一个用户
-  GRANT ALL PRIVILEGES ON *.* TO &#39;账号&#39;@&#39;%&#39; IDENTIFIED BY &#39;your password&#39; 
+  GRANT ALL PRIVILEGES ON *.* TO '账号'@'%' IDENTIFIED BY 'your password' 
   # 刷新权限
   flush privileges;
   # 查看目前防火墙
@@ -708,7 +708,25 @@
   # 重启防火墙,查看3306端口是否开放
   service firewalld restart</code></pre></li>
 </ul>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1276,7 +1294,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.3k</span>&nbsp;字
+                class="white-color">13k</span>&nbsp;字
             
             
             

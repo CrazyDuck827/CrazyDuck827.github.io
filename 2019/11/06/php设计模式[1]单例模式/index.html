@@ -410,7 +410,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    279
+                    317
                 </div>
                 
 
@@ -467,15 +467,15 @@ $db4 = Db1::getInstance();
 $db5 = unserialize(serialize($db4));
 
 var_dump($db1);
-echo &#39;&lt;hr&gt;&#39;;
+echo '&lt;hr&gt;';
 var_dump($db2);
-echo &#39;&lt;hr&gt;&#39;;
+echo '&lt;hr&gt;';
 var_dump($db3);
-echo &#39;&lt;hr&gt;&#39;;
+echo '&lt;hr&gt;';
 var_dump($db4);
-echo &#39;&lt;hr&gt;&#39;;
+echo '&lt;hr&gt;';
 var_dump($db5);
-echo &#39;&lt;hr&gt;&#39;;
+echo '&lt;hr&gt;';
 
 
 /**
@@ -511,10 +511,28 @@ $db6 = Db2::getInstance();
 $db7 = Db2::getInstance();
 
 var_dump($db6);
-echo &#39;&lt;hr&gt;&#39;;
+echo '&lt;hr&gt;';
 var_dump($db7);
-echo &#39;&lt;hr&gt;&#39;;</code></pre><p><img src="https://cdn.jsdelivr.net/gh/CrazyDuck827/CrazyDuck827.github.io/image/oop1.jpg" alt="单例模式"></p>
-
+echo '&lt;hr&gt;';</code></pre><p><img src="https://cdn.jsdelivr.net/gh/CrazyDuck827/CrazyDuck827.github.io/image/oop1.jpg" alt="单例模式"></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1090,7 +1108,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.3k</span>&nbsp;字
+                class="white-color">13k</span>&nbsp;字
             
             
             

@@ -489,7 +489,7 @@
   listen_address=0.0.0.0：设置监听ftp服务的IP地址
   listen_port=21：设置监听ftp服务的端口号
   write_enable=YES： 启用任何形式的写入权限（比如上传、删除文件等）都需要开启此项
-  download_enable=YES：是否允许下载文件（比如建立仅限于浏览、上传的ftp服务器时可将其设置                                                                     为&quot;NO&quot;）
+  download_enable=YES：是否允许下载文件（比如建立仅限于浏览、上传的ftp服务器时可将其设置                                                                     为"NO"）
   xferlog_enable=YES：启用xferlog日志，默认记录到/var/log/xferlog
   xferlog_std_format=YES： 启用标准的xferlog日志格式
   connect_from_port_20=YES：允许服务器主动模式
@@ -530,7 +530,25 @@
 </ul>
 </li>
 </ul>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
             </div>
             <hr/>
 
@@ -1119,7 +1137,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">12.3k</span>&nbsp;字
+                class="white-color">13k</span>&nbsp;字
             
             
             
