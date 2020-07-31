@@ -432,25 +432,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Windows安装两个Mysql"><a href="#Windows安装两个Mysql" class="headerlink" title="Windows安装两个Mysql"></a>Windows安装两个Mysql</h3><ul>
-<li><p>phpstudy下的mysql文件夹复制一份</p>
-</li>
-<li><p>修改my.ini</p>
-<pre><code>  [client]
-      port=3307
-  [mysqld]
-      port=3307
-      basedir=&quot;……&quot;
-      datadir=&quot;……&quot;</code></pre></li>
-<li><p>安装服务</p>
-<pre><code>  #进入mysql/bin文件夹
-  .\mysqld --install mysql2  # 注册服务
-  net start mysql2  # 开启服务
-  net stop mysql2  # 停止服务
-  .\mysqld --remove mysql2  # 删除服务
-  mysqld --console  # 启动服务报错查询具体问题</code></pre></li>
-</ul>
-<h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><ul>
+                <h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3><ul>
 <li><p>主服务my.ini配置</p>
 <pre><code>  log-bin=master-bin  # 表示开启二进制日志，并把二进制日志前缀改为master-bin 数据库备份文件名称，可自由取，生成后会带文件序列号，服务每重启一次就会产生一个新文件
   server-id = 1
@@ -485,6 +467,24 @@
   start slave; # 启动从服务的slave复制功能
   show slave status \G;   # 查从服务器的slave状态
   # Slave_IO_Running 和 Slave_SQL_Running 的值都为 Yes，则说明主从复制的所有配置已成功</code></pre></li>
+</ul>
+<h3 id="Windows安装两个Mysql"><a href="#Windows安装两个Mysql" class="headerlink" title="Windows安装两个Mysql"></a>Windows安装两个Mysql</h3><ul>
+<li><p>phpstudy下的mysql文件夹复制一份</p>
+</li>
+<li><p>修改my.ini</p>
+<pre><code>  [client]
+      port=3307
+  [mysqld]
+      port=3307
+      basedir=&quot;……&quot;
+      datadir=&quot;……&quot;</code></pre></li>
+<li><p>安装服务</p>
+<pre><code>  #进入mysql/bin文件夹
+  .\mysqld --install mysql2  # 注册服务
+  net start mysql2  # 开启服务
+  net stop mysql2  # 停止服务
+  .\mysqld --remove mysql2  # 删除服务
+  mysqld --console  # 启动服务报错查询具体问题</code></pre></li>
 </ul>
 <h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><h4 id="1-Last-IO-Errno-1593-server-uuid重复导致slave报错"><a href="#1-Last-IO-Errno-1593-server-uuid重复导致slave报错" class="headerlink" title="1. Last_IO_Errno: 1593 server-uuid重复导致slave报错"></a>1. Last_IO_Errno: 1593 server-uuid重复导致slave报错</h4><h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><ul>
 <li><p>在两个库上分别查看</p>
@@ -801,15 +801,10 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Windows安装两个Mysql
-phpstudy下的mysql文件夹复制一份
-
-修改my.ini
-  [client]
-      port=3307
-  [mysqld]
-      port=3307
-      basedir=&q
+                            主从复制
+主服务my.ini配置
+  log-bin=master-bin  # 表示开启二进制日志，并把二进制日志前缀改为master-bin 数据库备份文件名称，可自由取，生成后会带文件序列号，服务每重启一次就会产生一个新文件
+  se
                         
                     </div>
                     <div class="publish-info">
